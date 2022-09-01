@@ -7,10 +7,11 @@ import { CommentsModule } from './comments/comments.module';
 import { MovieModule } from './movie/movie.module';
 import { TheatersModule } from './theaters/theaters.module';
 import { SessionsModule } from './sessions/sessions.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [AuthModule, UsersModule, CommentsModule, MovieModule, TheatersModule, SessionsModule],
+  imports: [MongooseModule.forRoot(process.env.DB_CONNECT),AuthModule, UsersModule, CommentsModule, MovieModule, TheatersModule, SessionsModule],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
