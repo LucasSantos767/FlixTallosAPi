@@ -16,8 +16,8 @@ export class UsersService {
     return this.userModel.find();
   }
 
-  findOne(id: number) {
-    return this.userModel.findOne();
+  findOne(id: string) {
+    return this.userModel.findById(id);
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
