@@ -4,12 +4,18 @@ import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) { }
-  create(createUserDto: CreateUserDto) {
-    return this.userModel.create(createUserDto);
+ async create(createUserDto: CreateUserDto) {
+  const data = {
+    ...createUserDto,
+    password: await bcrypt.hash(createUserDto.password, 10),
+  }
+  const Incrypt = await this.userModel.create(data)
+  return {email:Incrypt.email, name:Incrypt.name, password:Incrypt.password};
   }
 
   findAll() {
@@ -20,7 +26,8 @@ export class UsersService {
     return this.userModel.findById(id);
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10)
     return this.userModel.findByIdAndUpdate(id,updateUserDto);
   }
 
