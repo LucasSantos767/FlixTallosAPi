@@ -24,7 +24,7 @@ export class UsersService {
     return this.userModel.findByIdAndUpdate(id,updateUserDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  remove(id: string) {
+    return this.userModel.findByIdAndDelete(id);
   }
 }
