@@ -20,8 +20,8 @@ export class MovieService {
     return this.movieModel.findById(id);
   }
 
-  update(id: number, updateMovieDto: UpdateMovieDto) {
-    return `This action updates a #${id} movie`;
+  update(id: string, updateMovieDto: UpdateMovieDto) {
+    return this.movieModel.findByIdAndUpdate(id,updateMovieDto);
   }
 
   remove(id: string) {
