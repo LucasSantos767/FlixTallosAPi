@@ -13,7 +13,7 @@ export class MovieService {
   }
 
   findAll() {
-    return this.movieModel.find();
+    return this.movieModel.find().limit(5);
   }
 
   findOne(id: number) {
