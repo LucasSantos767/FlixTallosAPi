@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import ITheater from "../interfaces/ITheater";
-@Schema()
+@Schema({ versionKey: false })
 export class Theater {
     @Prop()
     theaterid: number;

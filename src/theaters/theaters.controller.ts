@@ -7,7 +7,7 @@ import { UpdateTheaterDto } from './dto/update-theater.dto';
 export class TheatersController {
   constructor(private readonly theatersService: TheatersService) {}
 
-  @Post()
+  @Post('create')
   create(@Body() createTheaterDto: CreateTheaterDto) {
     return this.theatersService.create(createTheaterDto);
   }

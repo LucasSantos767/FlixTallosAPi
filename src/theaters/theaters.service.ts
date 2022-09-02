@@ -7,17 +7,17 @@ import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class TheatersService {
-  constructor(@InjectModel(Theater.name) private TheaterModel: Model<Theater>) { }
-  create(createTheaterDto: CreateTheaterDto) {
-    return 'This action adds a new theater';
+  constructor(@InjectModel(Theater.name) private theaterModel: Model<Theater>) { }
+  create(createTheaterDto: CreateTheaterDto):Promise<Theater> {
+    return this.theaterModel.create(createTheaterDto);
   }
 
   findAll() {
-    return this.TheaterModel.find().limit(6);
+    return this.theaterModel.find().limit(6);
   }
 
   findOne(id: string) {
-    return this.TheaterModel.findById(id);
+    return this.theaterModel.findById(id);
   }
 
   update(id: number, updateTheaterDto: UpdateTheaterDto) {
@@ -25,6 +25,6 @@ export class TheatersService {
   }
 
   remove(id: string) {
-    return this.TheaterModel.findByIdAndDelete(id);
+    return this.theaterModel.findByIdAndDelete(id);
   }
 }
