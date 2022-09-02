@@ -24,7 +24,7 @@ export class MovieService {
     return `This action updates a #${id} movie`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} movie`;
+  remove(id: string) {
+    return this.movieModel.findByIdAndDelete(id);
   }
 }

@@ -29,6 +29,6 @@ export class MovieController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.movieService.remove(+id);
+    return this.movieService.remove(id);
   }
 }
