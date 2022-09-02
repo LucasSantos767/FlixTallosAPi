@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import ITomatoes from "../interfaces/ITomatoes";
 
-@Schema()
+@Schema({ versionKey: false })
 export class Movie {
     @Prop()
     plot: string;
