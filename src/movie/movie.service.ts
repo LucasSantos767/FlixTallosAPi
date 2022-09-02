@@ -8,8 +8,8 @@ import { Movie } from './entities/movie.entity';
 @Injectable()
 export class MovieService {
   constructor(@InjectModel(Movie.name) private movieModel: Model<Movie>) { }
-  create(createMovieDto: CreateMovieDto) {
-    return 'This action adds a new movie';
+  create(createMovieDto: CreateMovieDto): Promise<Movie> {
+    return this.movieModel.create(createMovieDto);
   }
 
   findAll() {
