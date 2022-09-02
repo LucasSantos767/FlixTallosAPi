@@ -24,7 +24,7 @@ export class TheatersController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTheaterDto: UpdateTheaterDto) {
-    return this.theatersService.update(+id, updateTheaterDto);
+    return this.theatersService.update(id, updateTheaterDto);
   }
 
   @Delete(':id')

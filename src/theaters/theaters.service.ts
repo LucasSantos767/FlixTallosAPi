@@ -20,8 +20,8 @@ export class TheatersService {
     return this.theaterModel.findById(id);
   }
 
-  update(id: number, updateTheaterDto: UpdateTheaterDto) {
-    return `This action updates a #${id} theater`;
+  update(id: string, updateTheaterDto: UpdateTheaterDto) {
+    return this.theaterModel.findByIdAndUpdate(id,updateTheaterDto);
   }
 
   remove(id: string) {
