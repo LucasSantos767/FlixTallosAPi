@@ -16,8 +16,8 @@ export class MovieService {
     return this.movieModel.find().limit(5);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} movie`;
+  findOne(id: string) {
+    return this.movieModel.findById(id);
   }
 
   update(id: number, updateMovieDto: UpdateMovieDto) {

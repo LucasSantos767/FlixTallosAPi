@@ -19,7 +19,7 @@ export class MovieController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.movieService.findOne(+id);
+    return this.movieService.findOne(id);
   }
 
   @Patch(':id')
