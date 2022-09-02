@@ -29,6 +29,6 @@ export class TheatersController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.theatersService.remove(+id);
+    return this.theatersService.remove(id);
   }
 }

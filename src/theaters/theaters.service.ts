@@ -24,7 +24,7 @@ export class TheatersService {
     return `This action updates a #${id} theater`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} theater`;
+  remove(id: string) {
+    return this.TheaterModel.findByIdAndDelete(id);
   }
 }
