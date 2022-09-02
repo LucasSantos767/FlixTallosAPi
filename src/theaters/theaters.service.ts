@@ -16,8 +16,8 @@ export class TheatersService {
     return this.TheaterModel.find().limit(6);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} theater`;
+  findOne(id: string) {
+    return this.TheaterModel.findById(id);
   }
 
   update(id: number, updateTheaterDto: UpdateTheaterDto) {
