@@ -16,8 +16,8 @@ export class CommentsService {
     return this.commentModel.find().limit(6);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} comment`;
+  findOne(id: string) {
+    return this.commentModel.findById(id);
   }
 
   update(id: number, updateCommentDto: UpdateCommentDto) {
