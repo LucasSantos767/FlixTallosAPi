@@ -20,8 +20,8 @@ export class CommentsService {
     return this.commentModel.findById(id);
   }
 
-  update(id: number, updateCommentDto: UpdateCommentDto) {
-    return `This action updates a #${id} comment`;
+  update(id: string, updateCommentDto: UpdateCommentDto) {
+    return this.commentModel.findByIdAndUpdate(id,updateCommentDto);
   }
 
   remove(id: string) {
