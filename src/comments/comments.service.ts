@@ -24,7 +24,7 @@ export class CommentsService {
     return `This action updates a #${id} comment`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} comment`;
+  remove(id: string) {
+    return this.commentModel.findByIdAndDelete(id);
   }
 }
