@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { ObjectId } from "mongoose";
+import mongoose from "mongoose";
 
 @Schema({ versionKey: false })
 export class Comment {
@@ -7,8 +7,8 @@ export class Comment {
     name: string;
     @Prop()
     email: string;
-    @Prop()
-    movie_id: ObjectId
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'movies', required:true })
+    movie_id: string
     @Prop()
     text: string;
     @Prop()
