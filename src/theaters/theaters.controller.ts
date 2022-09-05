@@ -7,7 +7,7 @@ import { UpdateTheaterDto } from './dto/update-theater.dto';
 export class TheatersController {
   constructor(private readonly theatersService: TheatersService) {}
 
-  @Post()
+  @Post('create')
   create(@Body() createTheaterDto: CreateTheaterDto) {
     return this.theatersService.create(createTheaterDto);
   }
@@ -19,16 +19,16 @@ export class TheatersController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.theatersService.findOne(+id);
+    return this.theatersService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTheaterDto: UpdateTheaterDto) {
-    return this.theatersService.update(+id, updateTheaterDto);
+    return this.theatersService.update(id, updateTheaterDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.theatersService.remove(+id);
+    return this.theatersService.remove(id);
   }
 }
