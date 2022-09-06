@@ -16,8 +16,8 @@ export class SessionsService {
     return this.sessionModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} session`;
+  findOne(id: string) {
+    return this.sessionModel.findById(id);
   }
 
   update(id: number, updateSessionDto: UpdateSessionDto) {

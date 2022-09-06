@@ -19,7 +19,7 @@ export class SessionsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.sessionsService.findOne(+id);
+    return this.sessionsService.findOne(id);
   }
 
   @Patch(':id')
