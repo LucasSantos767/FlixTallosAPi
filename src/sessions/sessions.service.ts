@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { UpdateSessionDto } from './dto/update-session.dto';
+import { Session } from './entities/session.entity';
 
 @Injectable()
 export class SessionsService {
-  create(createSessionDto: CreateSessionDto) {
-    return 'This action adds a new session';
+  constructor(@InjectModel(Session.name) private sessionModel: Model<Session>) { }
+  create(createSessionDto: CreateSessionDto): Promise<Session> {
+    return this.sessionModel.create(createSessionDto);
   }
 
   findAll() {

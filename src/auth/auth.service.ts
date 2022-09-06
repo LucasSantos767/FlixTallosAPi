@@ -1,3 +1,4 @@
+import { SessionsService } from './../sessions/sessions.service';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -5,23 +6,38 @@ import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 import { UnauthorizedError } from './errors/unauthorized.error';
 import { UserPayload } from './models/UserPayload';
+import { UserSessions } from './models/UserSessions';
 import { UserToken } from './models/UserToken';
+import { Session } from 'src/sessions/entities/session.entity';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly userService: UsersService,
-  ) {}
+    @InjectModel(Session.name) private sessionModel: Model<Session>
+  ) { }
 
   async login(user: User): Promise<UserToken> {
     const payload: UserPayload = {
       email: user.email,
       name: user.name,
     };
-
+    const access = this.jwtService.sign(payload)
+    const sessions: UserSessions = {
+      user_id: payload.email,
+      jwt: access
+    }
+    if (sessions.user_id == payload.email) {
+      this.sessionModel.deleteOne({
+        user_id: sessions.user_id
+      }).exec()
+    }
+    this.sessionModel.create(sessions)
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: access
     };
   }
 
