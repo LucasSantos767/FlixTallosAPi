@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { SessionsService } from './sessions.service';
-import { SessionsController } from './sessions.controller';
+import { SessionsService } from './services/sessions.service';
+import { SessionsController } from './controllers/sessions.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Session, SessionSchema } from './entities/session.entity';
 

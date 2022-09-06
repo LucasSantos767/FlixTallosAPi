@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { TheatersService } from './theaters.service';
-import { CreateTheaterDto } from './dto/create-theater.dto';
-import { UpdateTheaterDto } from './dto/update-theater.dto';
+import { TheatersService } from '../services/theaters.service';
+import { CreateTheaterDto } from '../dto/create-theater.dto';
+import { UpdateTheaterDto } from '../dto/update-theater.dto';
 
 @Controller('theaters')
 export class TheatersController {
@@ -17,7 +17,7 @@ export class TheatersController {
     return this.theatersService.findAll();
   }
 
-  @Get('listOne/:id')
+  @Get('findOne/:id')
   findOne(@Param('id') id: string) {
     return this.theatersService.findOne(id);
   }

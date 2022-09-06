@@ -1,9 +1,8 @@
-import { SessionsService } from './../sessions/sessions.service';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { User } from 'src/users/entities/user.entity';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from 'src/users/services/users.service';
 import { UnauthorizedError } from './errors/unauthorized.error';
 import { UserPayload } from './models/UserPayload';
 import { UserSessions } from './models/UserSessions';

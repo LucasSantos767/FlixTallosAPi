@@ -1,8 +1,8 @@
 import { Model } from 'mongoose';
-import { Theater } from './entities/theater.entity';
+import { Theater } from '../entities/theater.entity';
 import { Injectable } from '@nestjs/common';
-import { CreateTheaterDto } from './dto/create-theater.dto';
-import { UpdateTheaterDto } from './dto/update-theater.dto';
+import { CreateTheaterDto } from '../dto/create-theater.dto';
+import { UpdateTheaterDto } from '../dto/update-theater.dto';
 import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()

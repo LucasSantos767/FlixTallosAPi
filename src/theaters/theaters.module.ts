@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { TheatersService } from './theaters.service';
-import { TheatersController } from './theaters.controller';
+import { TheatersService } from './services/theaters.service';
+import { TheatersController } from './controllers/theaters.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Theater, TheaterSchema } from './entities/theater.entity';
 
