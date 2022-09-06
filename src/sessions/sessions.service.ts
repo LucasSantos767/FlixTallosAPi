@@ -13,7 +13,7 @@ export class SessionsService {
   }
 
   findAll() {
-    return `This action returns all sessions`;
+    return this.sessionModel.find();
   }
 
   findOne(id: number) {
