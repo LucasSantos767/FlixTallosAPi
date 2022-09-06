@@ -12,22 +12,22 @@ export class MovieController {
     return this.movieService.create(createMovieDto);
   }
 
-  @Get()
+  @Get('list')
   findAll() {
     return this.movieService.findAll();
   }
 
-  @Get(':id')
+  @Get('findOne/:id')
   findOne(@Param('id') id: string) {
     return this.movieService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch('update/:id')
   update(@Param('id') id: string, @Body() updateMovieDto: UpdateMovieDto) {
     return this.movieService.update(id, updateMovieDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   remove(@Param('id') id: string) {
     return this.movieService.remove(id);
   }

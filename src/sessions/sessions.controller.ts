@@ -12,22 +12,22 @@ export class SessionsController {
     return this.sessionsService.create(createSessionDto);
   }
 
-  @Get()
+  @Get('list')
   findAll() {
     return this.sessionsService.findAll();
   }
 
-  @Get(':id')
+  @Get('findOne/:id')
   findOne(@Param('id') id: string) {
     return this.sessionsService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch('update/:id')
   update(@Param('id') id: string, @Body() updateSessionDto: UpdateSessionDto) {
     return this.sessionsService.update(+id, updateSessionDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   remove(@Param('id') id: string) {
     return this.sessionsService.remove(id);
   }
