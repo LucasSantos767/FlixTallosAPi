@@ -1,4 +1,4 @@
-export class CreateSessionDto {
+export class UserSessions{
     user_id: string
     jwt: string
 }

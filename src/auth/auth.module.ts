@@ -7,6 +7,8 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { LoginValidationMiddleware } from './middlewares/login-validation.middleware';
 import { UsersModule } from 'src/users/users.module';
 import { JwtStrategy } from './strategies/jwt-strategy';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Session, SessionSchema } from 'src/sessions/entities/session.entity';
 
 @Module({
   imports: [
@@ -16,6 +18,7 @@ import { JwtStrategy } from './strategies/jwt-strategy';
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '30d' },
     }),
+    MongooseModule.forFeature([{ name: Session.name, schema: SessionSchema }])
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy],
