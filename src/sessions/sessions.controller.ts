@@ -29,6 +29,6 @@ export class SessionsController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.sessionsService.remove(+id);
+    return this.sessionsService.remove(id);
   }
 }

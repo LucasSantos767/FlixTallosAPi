@@ -24,7 +24,7 @@ export class SessionsService {
     return `This action updates a #${id} session`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} session`;
+  remove(id: string) {
+    return this.sessionModel.findByIdAndDelete(id);
   }
 }
