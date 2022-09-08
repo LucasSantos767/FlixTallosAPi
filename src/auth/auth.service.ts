@@ -1,26 +1,61 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
+import { User } from 'src/users/entities/user.entity';
+import { UsersService } from 'src/users/services/users.service';
+import { UnauthorizedError } from './errors/unauthorized.error';
+import { UserPayload } from './models/UserPayload';
+import { UserSessions } from './models/UserSessions';
+import { UserToken } from './models/UserToken';
+import { Session } from 'src/sessions/entities/session.entity';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly userService: UsersService,
+    @InjectModel(Session.name) private sessionModel: Model<Session>
+  ) { }
+
+  async login(user: User): Promise<UserToken> {
+    const payload: UserPayload = {
+      email: user.email,
+      name: user.name,
+    };
+    const access = this.jwtService.sign(payload)
+    const sessions: UserSessions = {
+      user_id: payload.email,
+      jwt: access
+    }
+    if (sessions.user_id == payload.email) {
+      this.sessionModel.deleteOne({
+        user_id: sessions.user_id
+      }).exec()
+    }
+    this.sessionModel.create(sessions)
+    return {
+      access_token: access
+    };
   }
 
-  findAll() {
-    return `This action returns all auth`;
-  }
+  async validateUser(email: string, password: string): Promise<User> {
+    const user = await this.userService.findByEmail(email);
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
+    if (user) {
+      const isPasswordValid = await bcrypt.compare(password, user.password);
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
+      if (isPasswordValid) {
+        return {
+          name: user.name,
+          email: user.email
+        };
+      }
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+    throw new UnauthorizedError(
+      'Email address or password provided is incorrect.',
+    );
   }
 }
