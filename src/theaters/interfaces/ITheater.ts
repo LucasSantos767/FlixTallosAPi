@@ -1,5 +1,4 @@
 export default interface ITheater {
-
     address: {
         street1: string;
         city: string;
