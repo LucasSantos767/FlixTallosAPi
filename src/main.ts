@@ -7,10 +7,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors()
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('Api de filmes')
+    .setDescription('Uma api de gerenciar filmes')
     .setVersion('1.0')
-    .addTag('cats')
     .addBearerAuth(
       {
         type: 'http',

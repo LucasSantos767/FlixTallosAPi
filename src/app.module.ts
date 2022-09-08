@@ -13,7 +13,7 @@ import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [MongooseModule.forRoot(process.env.DB_CONNECT),AuthModule, UsersModule, CommentsModule, MovieModule, TheatersModule, SessionsModule],
-  controllers: [AppController],
+  controllers: [],
   providers: [AppService,{
     provide:APP_GUARD,
     useClass: JwtAuthGuard
