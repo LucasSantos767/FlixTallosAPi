@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   HttpCode,
   HttpStatus,
@@ -10,6 +11,7 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthRequest } from './models/AuthRequest';
 import { IsPublic } from './decorators/is-public.decorator';
+import { CreateAuthDto } from './dto/create-auth.dto';
 
 @Controller()
 export class AuthController {
@@ -19,7 +21,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  async login(@Request() req: AuthRequest) {
+  async login(@Request() req: AuthRequest,@Body() createAuthDto:CreateAuthDto) {
     return this.authService.login(req.user);
   }
 }
