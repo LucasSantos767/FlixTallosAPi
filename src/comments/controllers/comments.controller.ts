@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { CommentsService } from '../services/comments.service';
 import { CreateCommentDto } from '../dto/create-comment.dto';
 import { UpdateCommentDto } from '../dto/update-comment.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @Controller('comments')
 @ApiTags('comments')
@@ -11,26 +11,31 @@ export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
   @Post('create')
+  @ApiOperation({ summary: 'criar um comentário para o filme' })
   create(@Body() createCommentDto: CreateCommentDto) {
     return this.commentsService.create(createCommentDto);
   }
 
   @Get('list')
+  @ApiOperation({ summary: 'listar os comentários dos filmes' })
   findAll() {
     return this.commentsService.findAll();
   }
 
   @Get('findOne/:id')
+  @ApiOperation({ summary: 'procurar um comentário por id' })
   findOne(@Param('id') id: string) {
     return this.commentsService.findOne(id);
   }
 
   @Patch('update/:id')
+  @ApiOperation({ summary: 'atualizar o comentário de um filme' })
   update(@Param('id') id: string, @Body() updateCommentDto: UpdateCommentDto) {
     return this.commentsService.update(id, updateCommentDto);
   }
 
   @Delete('delete/:id')
+  @ApiOperation({ summary: 'deletar um comentário' })
   remove(@Param('id') id: string) {
     return this.commentsService.remove(id);
   }
