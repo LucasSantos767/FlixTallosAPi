@@ -21,7 +21,9 @@ export class TheatersService {
   }
 
   update(id: string, updateTheaterDto: UpdateTheaterDto) {
-    return this.theaterModel.findByIdAndUpdate(id,updateTheaterDto);
+    return this.theaterModel.findOneAndUpdate({_id:id},updateTheaterDto,{
+      new:true
+    });
   }
 
   remove(id: string) {

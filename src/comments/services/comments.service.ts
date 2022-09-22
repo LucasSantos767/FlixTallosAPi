@@ -21,7 +21,9 @@ export class CommentsService {
   }
 
   update(id: string, updateCommentDto: UpdateCommentDto) {
-    return this.commentModel.findByIdAndUpdate(id,updateCommentDto);
+    return this.commentModel.findOneAndUpdate({_id:id},updateCommentDto,{
+      new:true
+    });
   }
 
   remove(id: string) {
