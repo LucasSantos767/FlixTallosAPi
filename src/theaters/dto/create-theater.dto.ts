@@ -9,7 +9,7 @@ export class CreateTheaterDto {
         type: String,
         example: '222'
     })
-    theaterid: number;
+    theaterId: number;
     
     @Prop({ type: Object })
     @ApiProperty({
