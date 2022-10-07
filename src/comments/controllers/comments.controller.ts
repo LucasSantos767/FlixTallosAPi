@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { CommentsService } from '../services/comments.service';
 import { CreateCommentDto } from '../dto/create-comment.dto';
 import { UpdateCommentDto } from '../dto/update-comment.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { PaginationParams } from 'src/movie/paginationParams';
 
 @Controller('comments')
 @ApiTags('comments')
@@ -18,8 +19,8 @@ export class CommentsController {
 
   @Get('list')
   @ApiOperation({ summary: 'listar os comentários dos filmes' })
-  findAll() {
-    return this.commentsService.findAll();
+  findAll(@Query() {skip,limit}: PaginationParams) {
+    return this.commentsService.findAll(skip,limit);
   }
 
   @Get('findOne/:id')

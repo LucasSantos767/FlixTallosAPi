@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { User } from '../entities/user.entity';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { PaginationParams } from 'src/movie/paginationParams';
 
 @Controller('users')
 @ApiTags('users')
@@ -19,8 +20,8 @@ export class UsersController {
 
   @Get('list')
   @ApiOperation({ summary: 'listar os usuários' })
-  findAll() {
-    return this.usersService.findAll();
+  findAll(@Query() {skip,limit}:PaginationParams) {
+    return this.usersService.findAll(skip,limit);
   }
 
   @Get('findOne/:id')

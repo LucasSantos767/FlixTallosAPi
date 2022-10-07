@@ -18,8 +18,14 @@ export class UsersService {
   return {email:Incrypt.email, name:Incrypt.name, password:Incrypt.password};
   }
 
-  findAll() {
-    return this.userModel.find();
+  async findAll(documentsToSkip = 0, limitOfDocuments?:number) {
+    const query = this.userModel.find().sort({_id:1}).skip(documentsToSkip * limitOfDocuments)
+    if (limitOfDocuments) {
+      query.limit(limitOfDocuments);
+    }
+    const results = await query;
+    const count = await this.userModel.count();
+    return { results, count };
   }
   findByEmail(email: string) {
     return this.userModel.findOne({ email });

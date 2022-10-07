@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { TheatersService } from '../services/theaters.service';
 import { CreateTheaterDto } from '../dto/create-theater.dto';
 import { UpdateTheaterDto } from '../dto/update-theater.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { PaginationParams } from 'src/movie/paginationParams';
 
 @Controller('theaters')
 @ApiTags('theaters')
@@ -18,8 +19,8 @@ export class TheatersController {
 
   @Get('list')
   @ApiOperation({ summary: 'listar todos os teatros' })
-  findAll() {
-    return this.theatersService.findAll();
+  findAll(@Query() { skip, limit }: PaginationParams) {
+    return this.theatersService.findAll(skip,limit);
   }
 
   @Get('findOne/:id')

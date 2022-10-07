@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { MovieService } from '../services/movie.service';
 import { CreateMovieDto } from '../dto/create-movie.dto';
 import { UpdateMovieDto } from '../dto/update-movie.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { PaginationParams } from '../paginationParams';
 
 @Controller('movies')
 @ApiTags('movies')
@@ -18,8 +19,8 @@ export class MovieController {
 
   @Get('list')
   @ApiOperation({ summary: 'listar os filmes' })
-  findAll() {
-    return this.movieService.findAll();
+  findAll(@Query() { skip, limit }: PaginationParams) {
+    return this.movieService.findAll(skip,limit);
   }
 
   @Get('findOne/:id')

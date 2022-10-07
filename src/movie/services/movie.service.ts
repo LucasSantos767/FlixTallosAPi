@@ -12,8 +12,14 @@ export class MovieService {
     return this.movieModel.create(createMovieDto);
   }
 
-  findAll() {
-    return this.movieModel.find();
+  async findAll(documentsToSkip = 0, limitOfDocuments?: number) {
+    const count = await this.movieModel.count();
+    const query = this.movieModel.find().sort({ _id: 1 }).skip(documentsToSkip * limitOfDocuments)
+    if (limitOfDocuments) {
+      query.limit(limitOfDocuments);
+    }
+    const results = await query;
+    return { results, count };
   }
 
   findOne(id: string) {
@@ -21,8 +27,8 @@ export class MovieService {
   }
 
   update(id: string, updateMovieDto: UpdateMovieDto) {
-    return this.movieModel.findOneAndUpdate({_id:id},updateMovieDto,{
-      new:true
+    return this.movieModel.findOneAndUpdate({ _id: id }, updateMovieDto, {
+      new: true
     });
   }
 
