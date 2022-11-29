@@ -9,7 +9,7 @@ import { PaginationParams } from '../paginationParams';
 @ApiTags('movies')
 @ApiBearerAuth('JWT-auth')
 export class MovieController {
-  constructor(private readonly movieService: MovieService) {}
+  constructor(private readonly movieService: MovieService) { }
 
   @Post('create')
   @ApiOperation({ summary: 'adicionar um filme' })
@@ -19,8 +19,8 @@ export class MovieController {
 
   @Get('list')
   @ApiOperation({ summary: 'listar os filmes' })
-  findAll(@Query() { skip, limit }: PaginationParams) {
-    return this.movieService.findAll(skip,limit);
+  findAll(@Query() pagination) {
+    return this.movieService.findAll(pagination);
   }
 
   @Get('findOne/:id')
@@ -28,7 +28,11 @@ export class MovieController {
   findOne(@Param('id') id: string) {
     return this.movieService.findOne(id);
   }
-
+  
+  @Get(':title')
+  async getByName(@Query() pagination, @Param('title') title: string) {
+    return await this.movieService.getByName(title, pagination);
+  }
   @Patch('update/:id')
   @ApiOperation({ summary: 'atualizar dados do filme' })
   update(@Param('id') id: string, @Body() updateMovieDto: UpdateMovieDto) {
