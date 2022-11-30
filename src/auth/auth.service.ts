@@ -38,7 +38,9 @@ export class AuthService {
       }else{
         this.sessionModel.create(sessions)
       }
-    } catch (error) {}
+    } catch (error) {
+      this.sessionModel.create(sessions)
+    }
     return {
       access_token: access
     };
