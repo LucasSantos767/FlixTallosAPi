@@ -20,8 +20,8 @@ export class UsersController {
 
   @Get('list')
   @ApiOperation({ summary: 'listar os usuários' })
-  findAll(@Query() {skip,limit}:PaginationParams) {
-    return this.usersService.findAll(skip,limit);
+  findAll(@Query() pagination) {
+    return this.usersService.findAll(pagination);
   }
 
   @Get('findOne/:id')
@@ -29,7 +29,10 @@ export class UsersController {
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
-
+  @Get(':name')
+  async getByName(@Query() pagination, @Param('name') name:string){
+    return await this.usersService.getByName(name,pagination);
+  }
   @Patch('update/:id')
   @ApiOperation({ summary: 'atualizar dados de um usuário' })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
