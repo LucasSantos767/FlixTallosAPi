@@ -25,6 +25,11 @@ export class SessionsService {
   }
 
   remove(id: string) {
-    return this.sessionModel.findByIdAndDelete(id);
+    try {
+      const teste = this.sessionModel.findByIdAndDelete(id);
+      return teste;
+    } catch (error) {
+      console.log("🚀 ~ file: sessions.service.ts ~ line 32 ~ SessionsService ~ remove ~ error", error) 
+    }
   }
 }

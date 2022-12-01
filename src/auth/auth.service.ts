@@ -29,12 +29,18 @@ export class AuthService {
       user_id: payload.email,
       jwt: access
     }
-    if (sessions.user_id == payload.email) {
-      this.sessionModel.deleteOne({
-        user_id: sessions.user_id
-      }).exec()
+    try {
+      if (sessions.user_id === payload.email) {
+        this.sessionModel.deleteOne({
+          user_id: sessions.user_id
+        }).exec()
+        await this.sessionModel.create(sessions)
+      }else{
+        this.sessionModel.create(sessions)
+      }
+    } catch (error) {
+      this.sessionModel.create(sessions)
     }
-    this.sessionModel.create(sessions)
     return {
       access_token: access
     };
