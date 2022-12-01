@@ -1,36 +1,46 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { User } from '../entities/user.entity';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { PaginationParams } from 'src/movie/paginationParams';
 
 @Controller('users')
+@ApiTags('users')
 @ApiBearerAuth('JWT-auth')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('create')
+  @ApiOperation({ summary: 'criar um usuário' })
   create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.create(createUserDto);
   }
 
   @Get('list')
-  findAll() {
-    return this.usersService.findAll();
+  @ApiOperation({ summary: 'listar os usuários' })
+  findAll(@Query() pagination) {
+    return this.usersService.findAll(pagination);
   }
 
   @Get('findOne/:id')
+  @ApiOperation({ summary: 'pesquisar um usuário por id' })
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
-
+  @Get(':name')
+  async getByName(@Query() pagination, @Param('name') name:string){
+    return await this.usersService.getByName(name,pagination);
+  }
   @Patch('update/:id')
+  @ApiOperation({ summary: 'atualizar dados de um usuário' })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
   }
 
   @Delete('delete/:id')
+  @ApiOperation({ summary: 'excluir um usuário' })
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
   }

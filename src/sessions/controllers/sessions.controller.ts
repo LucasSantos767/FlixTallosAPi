@@ -2,8 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { SessionsService } from '../services/sessions.service';
 import { CreateSessionDto } from '../dto/create-session.dto';
 import { UpdateSessionDto } from '../dto/update-session.dto';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 @Controller('sessions')
+@ApiTags('sessions')
 @ApiBearerAuth('JWT-auth')
 export class SessionsController {
   constructor(private readonly sessionsService: SessionsService) {}
@@ -14,11 +15,13 @@ export class SessionsController {
   }
 
   @Get('list')
+  @ApiOperation({ summary: 'listar a sessões dos usuário' })
   findAll() {
     return this.sessionsService.findAll();
   }
 
   @Get('findOne/:id')
+  @ApiOperation({ summary: 'pesquisar uma sessão' })
   findOne(@Param('id') id: string) {
     return this.sessionsService.findOne(id);
   }
@@ -29,6 +32,7 @@ export class SessionsController {
   }
 
   @Delete('delete/:id')
+  @ApiOperation({ summary: 'deletar um sessão' })
   remove(@Param('id') id: string) {
     return this.sessionsService.remove(id);
   }

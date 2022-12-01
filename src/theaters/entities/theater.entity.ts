@@ -3,7 +3,7 @@ import ITheater from "../interfaces/ITheater";
 @Schema({ versionKey: false })
 export class Theater {
     @Prop()
-    theaterid: number;
+    theaterId: number;
     @Prop({ type: Object })
     location: ITheater
 }

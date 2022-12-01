@@ -12,8 +12,14 @@ export class CommentsService {
     return this.commentModel.create(createCommentDto);
   }
 
-  findAll() {
-    return this.commentModel.find().limit(6);
+  async findAll(documentsToSkip = 0, limitOfDocuments?: number) {
+   const query = this.commentModel.find().sort({_id:1}).skip(documentsToSkip * limitOfDocuments)
+   if (limitOfDocuments) {
+    query.limit(limitOfDocuments);
+  }
+  const results = await query;
+    const count = await this.commentModel.count();
+    return { results, count };
   }
 
   findOne(id: string) {
@@ -21,7 +27,9 @@ export class CommentsService {
   }
 
   update(id: string, updateCommentDto: UpdateCommentDto) {
-    return this.commentModel.findByIdAndUpdate(id,updateCommentDto);
+    return this.commentModel.findOneAndUpdate({_id:id},updateCommentDto,{
+      new:true
+    });
   }
 
   remove(id: string) {
