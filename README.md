@@ -58,6 +58,7 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 ## Iniciando com Docker
+```
 $ docker-compose up -d
 ```
 ## Support
